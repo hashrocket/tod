@@ -13,7 +13,7 @@ module Tod
 
     # Returns true if the time of day is inside the shift (inclusive range), false otherwise
     def include?(tod)
-      if ending >= beginning
+      if ending > beginning
         tod >= beginning && tod <= ending
       else
         start_of_day   = TimeOfDay.new(0,0,0)
@@ -25,7 +25,7 @@ module Tod
     # Return shift duration in seconds.
     # if ending is lower than beginning this method will calculate the duration as the ending time is from the following day
     def duration
-      if ending >= beginning
+      if ending > beginning
         (ending.to_i - beginning.to_i)
       else
         start_of_day   = TimeOfDay.new(0,0,0)

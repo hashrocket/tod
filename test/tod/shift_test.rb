@@ -19,11 +19,11 @@ class ShiftTest < Test::Unit::TestCase
       duration = shift.duration
       assert_equal duration, duration_expected
     end
-    should "be zero when both times are equal" do
+    should "be 86400 when both times are equal" do
       tod1 = TimeOfDay.new 3,00,30
       shift = Shift.new tod1, tod1
       duration = shift.duration
-      assert_equal duration, 0
+      assert_equal duration, 86400
     end
   end
 
@@ -89,6 +89,15 @@ class ShiftTest < Test::Unit::TestCase
       value = TimeOfDay.new 8
       shift = Shift.new tod1, tod2
       assert_equal shift.include?(value), false
+    end
+
+    # |------------------------|--V-----T1---------------|--------T2--------------|
+    should "be true when both times of day are equal" do
+      tod1  = TimeOfDay.new 10
+      tod2  = TimeOfDay.new 10
+      value = TimeOfDay.new 8
+      shift = Shift.new tod1, tod2
+      assert_equal shift.include?(value), true
     end
   end
 end
